@@ -36,6 +36,27 @@ test "register(): Passed Observer -> observer should be added to @registeredObse
 	subject = event.registeredObservers[0]
 	equal(subject, observer)
 
+test "register(): Passed function -> Should create Observer", 1, ->
+	# Arrange
+	passValue = 5
+	callBack = (value) ->
+		# Assert
+		equal value, passValue
+	event = new jsEvents.Event();
+	# Act
+	observer = event.register(callBack)
+	event.notify passValue
+
+
+test "register(): Parameters valid -> Should return Observer", ->
+	# Arrange
+	observer = new jsEvents.Observer(->)
+	event = new jsEvents.Event()
+	# Act
+	subject = event.register(observer)
+	# Assert
+	equal(subject, observer)
+
 test "register(): Passed non-Observer -> Should throw an exception", ->
 	# Arrange
 	observer = ""

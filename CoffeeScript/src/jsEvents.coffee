@@ -9,8 +9,10 @@ class jsEvents.Event
 	constructor: ->
 		@registeredObservers = []
 	register: (observer) ->
-		throw "observer should be class Observer" if !(observer instanceof jsEvents.Observer)
+		observer = new jsEvents.Observer observer if (observer instanceof Function)
+		throw "observer should be class Observer or Function" if !(observer instanceof jsEvents.Observer)
 		@registeredObservers.push(observer)
+		observer
 	unregister: (observerToFind) ->
 		throw "Observer required" if !(observerToFind instanceof jsEvents.Observer)
 		newObserverList = []

@@ -14,10 +14,14 @@ jsEvents.Event = (function() {
     this.registeredObservers = [];
   }
   Event.prototype.register = function(observer) {
-    if (!(observer instanceof jsEvents.Observer)) {
-      throw "observer should be class Observer";
+    if (observer instanceof Function) {
+      observer = new jsEvents.Observer(observer);
     }
-    return this.registeredObservers.push(observer);
+    if (!(observer instanceof jsEvents.Observer)) {
+      throw "observer should be class Observer or Function";
+    }
+    this.registeredObservers.push(observer);
+    return observer;
   };
   Event.prototype.unregister = function(observerToFind) {
     var newObserverList, observer, _i, _len, _ref;

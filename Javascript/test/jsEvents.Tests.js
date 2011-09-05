@@ -27,6 +27,23 @@ test("register(): Passed Observer -> observer should be added to @registeredObse
   subject = event.registeredObservers[0];
   return equal(subject, observer);
 });
+test("register(): Passed function -> Should create Observer", 1, function() {
+  var callBack, event, observer, passValue;
+  passValue = 5;
+  callBack = function(value) {
+    return equal(value, passValue);
+  };
+  event = new jsEvents.Event();
+  observer = event.register(callBack);
+  return event.notify(passValue);
+});
+test("register(): Parameters valid -> Should return Observer", function() {
+  var event, observer, subject;
+  observer = new jsEvents.Observer(function() {});
+  event = new jsEvents.Event();
+  subject = event.register(observer);
+  return equal(subject, observer);
+});
 test("register(): Passed non-Observer -> Should throw an exception", function() {
   var event, observer;
   observer = "";
