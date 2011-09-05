@@ -20,10 +20,10 @@ Javascript:
 event = new jsEvents.Event;
 
 observer1 = event.register(function(name) {
-  return alert(name);
+  alert(name);
 });
 observer2 = event.register(function(name) {
-  return alert(name + "Smith");
+  alert(name + "Smith");
 });
 
 event.notify("Craig");
