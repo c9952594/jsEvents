@@ -2,18 +2,13 @@ USAGE:
 
 CoffeeScript:
 =============
-alertName = (name) ->
-   alert name
-alertWithSurname = (name) ->
-   alert name + " Smith"
-
-observer1 = new jsEvents.Observer alertName
-observer2 = new jsEvents.Observer alertWithSurname 
-
 event = new jsEvents.Event
 
-event.register observer1
-event.register observer2
+observer1 = event.register (name) ->
+   alert name
+observer2 = event.register (name) ->
+   alert name + "Smith"
+
 event.notify "Craig"
 
 event.unregister observer1
@@ -22,20 +17,15 @@ event.notify "Another"
 
 Javascript:
 ===========
-alertName = function(name) {
-  return alert(name);
-};
-alertWithSurname = function(name) {
-  return alert(name + " Smith");
-};
-
-observer1 = new jsEvents.Observer(alertName);
-observer2 = new jsEvents.Observer(alertWithSurname);
-
 event = new jsEvents.Event;
 
-event.register(observer1);
-event.register(observer2);
+observer1 = event.register(function(name) {
+  return alert(name);
+});
+observer2 = event.register(function(name) {
+  return alert(name + "Smith");
+});
+
 event.notify("Craig");
 
 event.unregister(observer1);
